@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Arthur - Apercu interface SaaS</title>
+    <style>
+      :root {
+        --bg: #f8f5ee;
+        --card: #ffffff;
+        --text: #20242d;
+        --muted: #64707d;
+        --line: #dbe2e3;
+        --primary: #16756d;
+        --primary-soft: #eaf7f5;
+        --gold: #f2b84b;
+        --coral: #ed7357;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .shell {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 260px 1fr;
+      }
+
+      aside {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        background: #fff;
+        border-right: 1px solid var(--line);
+        padding: 26px 18px;
+      }
+
+      .brand {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 4px;
+      }
+
+      .subtitle {
+        color: var(--muted);
+        font-size: 14px;
+        margin-bottom: 18px;
+      }
+
+      .trial {
+        display: inline-flex;
+        background: rgba(242, 184, 75, 0.28);
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 28px;
+      }
+
+      nav {
+        display: grid;
+        gap: 8px;
+      }
+
+      nav span {
+        padding: 12px;
+        border-radius: 8px;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      nav span.active,
+      nav span:hover {
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      main {
+        padding: 34px;
+      }
+
+      .topline {
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      h1 {
+        font-size: clamp(30px, 5vw, 44px);
+        line-height: 1.05;
+        margin: 6px 0 10px;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        color: var(--muted);
+        max-width: 760px;
+        line-height: 1.7;
+        margin: 0 0 24px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .two {
+        grid-template-columns: 340px 1fr;
+      }
+
+      .three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 22px;
+        box-shadow: 0 1px 3px rgba(20, 26, 32, 0.04);
+      }
+
+      .score {
+        font-size: 64px;
+        font-weight: 850;
+        line-height: 1;
+      }
+
+      .score small {
+        color: var(--muted);
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        border-radius: 999px;
+        background: var(--primary-soft);
+        color: var(--primary);
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .badge.gold {
+        background: rgba(242, 184, 75, 0.28);
+        color: #5a420c;
+      }
+
+      .arthur-note {
+        border-color: rgba(22, 117, 109, 0.28);
+      }
+
+      .arthur-note p {
+        line-height: 1.75;
+        margin: 10px 0 0;
+        font-size: 17px;
+      }
+
+      h2,
+      h3 {
+        margin: 0;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      h3 {
+        font-size: 18px;
+      }
+
+      .muted {
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .button {
+        border: 0;
+        border-radius: 8px;
+        background: var(--primary);
+        color: #fff;
+        padding: 12px 16px;
+        font-weight: 800;
+        cursor: default;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .button.secondary {
+        background: #fff;
+        color: var(--text);
+        border: 1px solid var(--line);
+      }
+
+      .progress {
+        height: 12px;
+        background: #edf0f0;
+        border-radius: 999px;
+        overflow: hidden;
+        margin: 18px 0 12px;
+      }
+
+      .progress div {
+        width: 33%;
+        height: 100%;
+        background: var(--primary);
+      }
+
+      .section {
+        margin-top: 34px;
+      }
+
+      .plan-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr auto;
+        gap: 18px;
+        align-items: start;
+      }
+
+      .check {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 2px solid var(--primary);
+        background: var(--primary);
+        box-shadow: inset 0 0 0 4px #fff;
+      }
+
+      .content-card p.body {
+        white-space: pre-line;
+        line-height: 1.7;
+      }
+
+      .pricing {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .price {
+        font-size: 36px;
+        font-weight: 850;
+        margin: 10px 0;
+      }
+
+      ul {
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      @media (max-width: 900px) {
+        .shell {
+          display: block;
+        }
+
+        aside {
+          position: static;
+          height: auto;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        nav {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        main {
+          padding: 22px;
+        }
+
+        .two,
+        .three,
+        .pricing,
+        .plan-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <div class="brand">Arthur™</div>
+        <div class="subtitle">Votre responsable virtuel</div>
+        <div class="trial">Essai gratuit : 11 jours</div>
+        <nav>
+          <span class="active">Cette semaine</span>
+          <span>Plan</span>
+          <span>Contenus</span>
+          <span>Progres</span>
+          <span>Abonnement</span>
+          <span>Admin</span>
+        </nav>
+      </aside>
+
+      <main>
+        <div class="topline">Arthur™</div>
+        <h1>Que dois-je faire cette semaine ?</h1>
+        <p class="lead">Arthur a choisi les priorites les plus utiles pour obtenir plus de clients.</p>
+
+        <section class="grid two">
+          <div class="card">
+            <h2>Score croissance</h2>
+            <p class="score">72<small>/100</small></p>
+            <span class="badge">+6 points</span>
+            <p class="muted">Votre presence locale progresse. La prochaine marge de croissance vient surtout des preuves client et des relances simples.</p>
+          </div>
+
+          <div class="card arthur-note">
+            <span class="badge">Arthur</span>
+            <p>Bonjour Marc,</p>
+            <p>J'ai analyse votre activite. Cette semaine, je vous recommande de renforcer la confiance, relancer vos meilleurs contacts et publier une offre claire.</p>
+          </div>
+        </section>
+
+        <section class="section grid two">
+          <div class="card">
+            <span class="badge gold">Impact fort</span>
+            <h2 style="margin-top: 12px;">La prochaine action</h2>
+            <h3 style="margin-top: 16px;">Demander 3 avis ou recommandations</h3>
+            <p class="muted">Renforcer la confiance avant la prochaine prise de contact.</p>
+            <span class="button">Je l'ai faite</span>
+            <span class="button secondary">Voir le plan</span>
+          </div>
+
+          <div class="card">
+            <h2>Avancement de la semaine</h2>
+            <p class="score" style="font-size: 46px;">1<small>/3 actions</small></p>
+            <div class="progress"><div></div></div>
+            <p class="muted">Cochez les actions terminees pour qu'Arthur suive votre progression.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 style="margin-bottom: 14px;">Plan de la semaine</h2>
+          <div class="grid">
+            <div class="card plan-row">
+              <div>
+                <span class="badge gold">Impact fort</span>
+                <h3 style="margin-top: 12px;">Demander 3 avis clients</h3>
+              </div>
+              <div>
+                <strong>Pourquoi</strong>
+                <p class="muted">Les prospects choisissent plus vite quand ils voient une preuve recente.</p>
+              </div>
+              <div>
+                <strong>Comment</strong>
+                <ol class="muted">
+                  <li>Choisissez 3 clients satisfaits.</li>
+                  <li>Envoyez un message court.</li>
+                  <li>Publiez le meilleur retour.</li>
+                </ol>
+              </div>
+              <div class="check"></div>
+            </div>
+
+            <div class="card plan-row">
+              <div>
+                <span class="badge">Important</span>
+                <h3 style="margin-top: 12px;">Publier une offre simple</h3>
+              </div>
+              <div>
+                <strong>Pourquoi</strong>
+                <p class="muted">Une offre claire aide les clients a comprendre pourquoi vous contacter.</p>
+              </div>
+              <div>
+                <strong>Comment</strong>
+                <ol class="muted">
+                  <li>Expliquez le probleme.</li>
+                  <li>Ajoutez un resultat concret.</li>
+                  <li>Invitez a vous ecrire.</li>
+                </ol>
+              </div>
+              <span class="button secondary">Marquer comme fait</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 style="margin-bottom: 14px;">Contenus prepares par Arthur</h2>
+          <div class="card" style="margin-bottom: 18px;">
+            <h3>Que voulez-vous preparer ?</h3>
+            <p class="muted">Publication Facebook, Instagram, email, newsletter ou trois contenus differents.</p>
+            <span class="button">Generer avec Arthur</span>
+          </div>
+          <div class="grid two">
+            <div class="card content-card">
+              <span class="badge">Facebook</span>
+              <h3 style="margin-top: 12px;">Post preuve client</h3>
+              <p class="body muted">Cette semaine, j'ai accompagne un client qui voulait gagner du temps sans perdre en qualite.
+
+Resultat : une solution simple, claire, et un vrai soulagement au quotidien.
+
+Vous voulez le meme type de resultat ? Ecrivez-moi.</p>
+              <span class="button secondary">Copier</span>
+              <span class="button secondary">Regenerer</span>
+            </div>
+            <div class="card content-card">
+              <span class="badge">Email</span>
+              <h3 style="margin-top: 12px;">Relance douce</h3>
+              <p class="body muted">Bonjour,
+
+Je pensais a vous cette semaine. Si vous avez besoin d'un coup de main ou si vous connaissez quelqu'un qui cherche une solution serieuse, je serai ravi d'en parler.</p>
+              <span class="button secondary">Copier</span>
+              <span class="button secondary">Regenerer</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 style="margin-bottom: 14px;">Abonnement</h2>
+          <div class="grid pricing">
+            <div class="card">
+              <span class="badge gold">Plan actuel</span>
+              <h3 style="margin-top: 12px;">Starter</h3>
+              <div class="price">29€/mois</div>
+              <ul>
+                <li>Score croissance</li>
+                <li>Plan hebdomadaire</li>
+                <li>3 contenus par mois</li>
+              </ul>
+              <span class="button secondary">Revoir ce plan</span>
+            </div>
+            <div class="card" style="border-color: rgba(22, 117, 109, 0.45);">
+              <h3>Pro</h3>
+              <div class="price">59€/mois</div>
+              <ul>
+                <li>Contenu illimite</li>
+                <li>3 concurrents</li>
+                <li>Scripts commerciaux</li>
+                <li>Alertes</li>
+              </ul>
+              <span class="button">Passer au Pro</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
