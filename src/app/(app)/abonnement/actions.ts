@@ -104,7 +104,7 @@ export async function createCheckoutSessionAction(formData: FormData) {
     redirect("/abonnement?error=Stripe n'a pas retourne de lien de paiement.");
   }
 
-  redirect(sessionUrl);
+  redirect(sessionUrl as never);
 }
 
 export async function createBillingPortalSessionAction() {
@@ -144,5 +144,5 @@ export async function createBillingPortalSessionAction() {
     redirect("/abonnement?error=Stripe n'a pas retourne de portail client.");
   }
 
-  redirect(portalUrl);
+  redirect(portalSession.url as never);
 }
