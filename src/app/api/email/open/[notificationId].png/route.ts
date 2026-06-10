@@ -8,9 +8,9 @@ const transparentPixel = Buffer.from(
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: Promise<{ notificationId: string }> }
+  context: { params: Promise<Record<string, string>> }
 ) {
-  const { notificationId } = await params;
+  const { notificationId } = await context.params;
 
   try {
     const admin = createSupabaseAdminClient();
